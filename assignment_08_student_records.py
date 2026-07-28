@@ -89,4 +89,64 @@
 # =============================================================================
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
+def add_student(students):
+    name = input("Student name: ")
+    id_num = input("Student ID: ")
+    count = int(input("How many scores? "))
+    scores = []
+    for i in range(count):
+        score = int(input(f"Enter score {i+1}: "))
+        scores.append(score)
+    student = {"name": name, "id": id_num, "scores": scores}
+    students.append(student)
+    print(f"Student \"{name}\" added successfully.")
 
+def display_students(students):
+    if len(students) == 0:
+        print("No students have been added yet.")
+        return
+    print("-" * 50)
+    print(f"{'Name':<15}{'ID':<12}{'Scores':<20}{'Average':<10}")
+    print("-" * 50)
+    for s in students:
+        avg = sum(s["scores"]) / len(s["scores"])
+        scores_str = ", ".join(map(str, s["scores"]))
+        print(f"{s['name']:<15}{s['id']:<12}{scores_str:<20}{avg:.2f}")
+    print("-" * 50)
+
+
+def calculate_average(students):
+    id_num = input("Enter student ID: ")
+    for s in students:
+        if s["id"] == id_num:
+            avg = sum(s["scores"]) / len(s["scores"])
+            print(f"{s['name']}'s average score: {avg:.2f}")
+            return
+    print("Error: Student ID not found.")
+
+
+def main():
+    students = []
+    while True:
+        print("========================================")
+        print("   STUDENT RECORD SYSTEM MENU")
+        print("========================================")
+        print("1. Add student")
+        print("2. Display all students")
+        print("3. Calculate average score")
+        print("4. Quit")
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == "1":
+            add_student(students)
+        elif choice == "2":
+            display_students(students)
+        elif choice == "3":
+            calculate_average(students)
+        elif choice == "4":
+            print("Goodbye!")
+            break
+        else:
+            print("Error: Invalid choice. Please enter 1-4.")
+
+main()    
